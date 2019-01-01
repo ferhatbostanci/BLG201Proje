@@ -111,51 +111,25 @@ void printArray(int array[]) {
     printf("\n");
 }
 
-void convertStrtoArr(char str[])
-{
-    // get length of string str
-    size_t str_length = strlen(str);
+void convertStrtoArr(char str[], int count){
+    char seps[] = " ";
+    char* token;
+    int var;
+    int input[count];
+    int i = 0;
 
-//    printf("%lli\n", str_length);
-
-    // create an array with size as string
-    // length and initialize with 0
-    int arr[str_length];
-
-
-    int j = 0, i, mult = 1;
-
-    // Traverse the string
-    for (i = 0; str[i] != '\0'; i++) {
-
-        printf("%c", str[i]);
-
-        // if str[i] is ' ' then split
-        if (str[i] == ' ') {
-
-            // Increment j to point to next
-            // array location
-            j++;
-            mult = 1;
-        }
-        else {
-
-            // subtract str[i] by 48 to convert it to int
-            // Generate number by multiplying 10 and adding
-            // (int)(str[i])
-            arr[j] = arr[j] + ((int)str[i] - 48)* mult;
-            mult = mult * 10;
-        }
+    token = strtok(str, seps);
+    while (token != NULL){
+        sscanf(token, "%d", &var);
+        input[i++] = var;
+        token = strtok(NULL, seps);
     }
 
-    printf("arr[] = ");
-    for (i = 0; i <= j; i++) {
-        printf("%d, ", arr[i]) ;
-//        sum += arr[i]; // sum of array
+    for (int j = 0; j < count ; ++j) {
+        printf("%d ", input[j]);
     }
+
     printf("\n");
-
-    // print sum of array
 
 }
 
@@ -164,13 +138,19 @@ void readFromFile() {
     char * line = NULL;
     size_t len = 0;
     ssize_t read;
+    int count = 2;
 
     fp = fopen("..\\data.txt", "r");
     if (fp == NULL)
         exit(EXIT_FAILURE);
     while ((read = getline(&line, &len, fp)) != -1) {
-//        printf("%s", line);
-        convertStrtoArr(line);
+        //printf("%s", line);
+        if(count == 2){
+            convertStrtoArr(line, 2);
+            count++;
+        }else{
+            convertStrtoArr(line, 3);
+        }
     }
 
 }
