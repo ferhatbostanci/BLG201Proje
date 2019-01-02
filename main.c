@@ -171,6 +171,9 @@ void readFromFile() {
 
     if (fp == NULL) exit(EXIT_FAILURE);
 
+    printf("Please enter the addition number: ");
+    scanf("%d", &t);
+
     while ((read = getline(&line, &len, fp)) != -1) {
         //printf("%s", line);
         int linesize = getIntCount(line);
@@ -185,9 +188,6 @@ void readFromFile() {
             int tempB = temp[1];
             int tempC = temp[2];
 
-            printf("Please enter the addition number: ");
-            scanf("%d", &t);
-
             process[index_process] = equation(tempA, tempB, tempC, t);
             printf("Equ: %d\n", process[index_process]);
             index_process = index_process +1;
@@ -197,6 +197,9 @@ void readFromFile() {
             maxValues[index_max] = max(process, index_process);
             index_max = index_max + 1;
             index_process = 0;
+
+            printf("Please enter the addition number: ");
+            scanf("%d", &t);
         }
     }
 
