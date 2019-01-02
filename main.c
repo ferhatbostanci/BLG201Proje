@@ -181,9 +181,9 @@ void readFromFile() {
             //printf("%d\n", temp[0]);
         }else{
             temp = convertStrtoArr(line, 3);
-            a = temp[0];
-            b = temp[1];
-            c = temp[2];
+            int tempA = temp[0];
+            int tempB = temp[1];
+            int tempC = temp[2];
 
             printf("Please enter the addition number\n");
             scanf("%d", &t);
@@ -197,13 +197,10 @@ void readFromFile() {
     maxValues[index_max] = max(process, index_process);
     index_max = index_max + 1;
 
-
-
-
     int minValue = min(maxValues, index_max);
 
     printf("\n\nSonuc: %d", minValue);
-    
+
 }
 
 
