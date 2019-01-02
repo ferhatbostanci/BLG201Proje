@@ -3,6 +3,8 @@
 #include <string.h>
 #define ARRAY_SIZE(array) (sizeof(array)/sizeof(array[0]))
 
+int maxValues[1000];
+
 size_t getline(char **lineptr, size_t *n, FILE *stream) {
     char *bufptr = NULL;
     char *p = bufptr;
@@ -111,7 +113,7 @@ void printArray(int array[]) {
     printf("\n");
 }
 
-void convertStrtoArr(char str[], int count){
+int * convertStrtoArr(char str[], int count){
     char seps[] = " ";
     char* token;
     int var;
@@ -125,11 +127,11 @@ void convertStrtoArr(char str[], int count){
         token = strtok(NULL, seps);
     }
 
-    for (int j = 0; j < count ; ++j) {
-        printf("%d ", input[j]);
-    }
+//    for (int j = 0; j < count ; ++j) {
+//        printf("%d ", input[j]);
+//    }
 
-    printf("\n");
+    return input;
 
 }
 
@@ -139,19 +141,61 @@ void readFromFile() {
     size_t len = 0;
     ssize_t read;
     int count = 2;
+    int index_max = 0, index_process = 0;
+    int *a,*b,*c;
+    int k,t,i=0;
+    int process[1000];
+
+    int arr_count = 0;
 
     fp = fopen("..\\data.txt", "r");
+
     if (fp == NULL)
         exit(EXIT_FAILURE);
     while ((read = getline(&line, &len, fp)) != -1) {
         //printf("%s", line);
-        if(count == 2){
-            convertStrtoArr(line, 2);
-            count++;
-        }else{
-            convertStrtoArr(line, 3);
+        if (arr_count == 0) {
+            if(count == 2){
+                a = convertStrtoArr(line, 2);
+                count++;
+            }else{
+                a = convertStrtoArr(line, 3);
+            }
+        } else if (arr_count == 1) {
+            if(count == 2){
+                b = convertStrtoArr(line, 2);
+                count++;
+            }else{
+                b = convertStrtoArr(line, 3);
+            }
+        } else if (arr_count == 2) {
+            if(count == 2){
+                c = convertStrtoArr(line, 2);
+                count++;
+            }else{
+                c = convertStrtoArr(line, 3);
+            }
         }
+        arr_count++;
+        if (arr_count % 4 == 3) {
+            printf("Please enter the addition number\n");
+            scanf("%d", &t);
+            printf("Please enter the mod number\n");
+            scanf("%d", &k);
+            process[index_process] = equation(a[i], b[i], c[i], t, k);
+            printf("%d", process[index_process]);
+            index_process = index_process +1;
+            maxValues[index_max] = max(process, ARRAY_SIZE(process));
+            index_max = index_max + 1;
+            arr_count = 0;
+        }
+
     }
+
+    int minValue = min(maxValues, ARRAY_SIZE(maxValues));
+
+    printArray(maxValues);
+
 
 }
 
