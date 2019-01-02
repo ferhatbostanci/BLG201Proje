@@ -171,7 +171,7 @@ void readFromFile() {
 
     if (fp == NULL) exit(EXIT_FAILURE);
 
-    printf("Please enter the addition number: ");
+    printf("Please enter the %d. data's addition(t) number: ", index_max+1);
     scanf("%d", &t);
 
     while ((read = getline(&line, &len, fp)) != -1) {
@@ -198,110 +198,26 @@ void readFromFile() {
             index_max = index_max + 1;
             index_process = 0;
 
-            printf("Please enter the addition number: ");
+            printf("Please enter the %d. data's addition(t) number: ", index_max+1);
             scanf("%d", &t);
         }
     }
 
-    printf("\n\n");
+    printf("\n\nMax Values are : \n");
     printArray(maxValues, index_max);
 
-    int minValue = min(maxValues, index_max);
-
-    printf("\n\nSonuc: %d", minValue);
+    printf("\n\nMinimum Number of Equation is : %d", min(maxValues, index_max));
 
 }
 
 
 int main() {
 
-    readFromFile();
+    printf("Welcome to Our Equation Cli Application\n");
+    printf("This Application takes data from a file.\n");
+    printf("You just need to input addition number.\n\n");
 
-//    int a[] = {15, 21, 32, 15, 25, 45, 14, 36};
-//    int b[] = {16, 13, 12, 11, 17, 18, 25, 22};
-//    int c[] = {23, 34, 18, 17, 22, 29, 34, 25};
-//    int k = 5;
-//    int proccess[ARRAY_SIZE(a)];
-//    int max_numbers[10];
-//    int min_number;
-//
-//    int t = 0;
-//
-//    printf("Please enter the addition number\n", ARRAY_SIZE(a));
-//    scanf("%d", &t);
-//
-//    while (t <= 0) {
-//        printf("Addition number must be greater then 0\n");
-//        scanf("%d", &t);
-//    }
-//
-//    for (int i = 0; i < ARRAY_SIZE(a); ++i) {
-//        proccess[i] = equation(a[i], b[i], c[i], t, k);
-//    }
-//
-//    max_numbers[0] = max(proccess, ARRAY_SIZE(proccess));
-//
-//    printf("\n");
-//    printArray(a);
-//    printArray(b);
-//    printArray(c);
-//    printf("T = %d and K = %d and MAX Number = %d\n", t, k, max_numbers[0]);
-//
-//    int d[] = {11, 12, 36, 15, 22, 48, 17, 25};
-//    int e[] = {15, 22, 36, 48, 25, 14, 12, 37};
-//    int f[] = {85, 58, 97, 23, 24, 55, 43, 48};
-//
-//    printf("Please enter the addition number\n");
-//    scanf("%d", &t);
-//
-//    while (t <= 0) {
-//        printf("Addition number must be greater then 0\n");
-//        scanf("%d", &t);
-//    }
-//
-//    k = 4;
-//
-//    for (int i = 0; i < ARRAY_SIZE(d); ++i) {
-//        proccess[i] = equation(d[i], e[i], f[i], t, k);
-//    }
-//
-//    max_numbers[1] = max(proccess, ARRAY_SIZE(proccess));
-//
-//    printf("\n");
-//    printArray(d);
-//    printArray(e);
-//    printArray(f);
-//    printf("T = %d and K = %d and MAX Number = %d\n", t, k, max_numbers[1]);
-//
-//    int g[] = {47, 48, 65, 3, 10000, 1245, 4, 75};
-//    int h[] = {45, 54, 16, 22, 65441, 1879, 2781, 23};
-//    int j[] = {54, 555, 7584, 16, 58, 2541, 65, 3};
-//
-//    printf("Please enter the addition number\n");
-//    scanf("%d", &t);
-//
-//    while (t <= 0) {
-//        printf("Addition number must be greater then 0\n");
-//        scanf("%d", &t);
-//    }
-//
-//    k = 7;
-//
-//    for (int i = 0; i < ARRAY_SIZE(g); ++i) {
-//        proccess[i] = equation(g[i], h[i], j[i], t, k);
-//    }
-//
-//    max_numbers[2] = max(proccess, ARRAY_SIZE(proccess));
-//
-//    printf("\n");
-//    printArray(g);
-//    printArray(h);
-//    printArray(j);
-//    printf("T = %d and K = %d and MAX Number = %d\n", t, k, max_numbers[2]);
-//
-//    min_number = min(max_numbers, 2);
-//
-//    printf("\nMIN Number%d\n", min_number);
+    readFromFile();
 
     return 0;
 }
