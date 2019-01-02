@@ -169,8 +169,8 @@ void readFromFile() {
 
     fp = fopen("..\\data.txt", "r");
 
-    if (fp == NULL)
-        exit(EXIT_FAILURE);
+    if (fp == NULL) exit(EXIT_FAILURE);
+
     while ((read = getline(&line, &len, fp)) != -1) {
         //printf("%s", line);
         int linesize = getIntCount(line);
@@ -185,21 +185,30 @@ void readFromFile() {
             int tempB = temp[1];
             int tempC = temp[2];
 
-            printf("Please enter the addition number\n");
+            printf("Please enter the addition number: ");
             scanf("%d", &t);
 
-            process[index_process] = equation(a, b, c, t);
+            process[index_process] = equation(tempA, tempB, tempC, t);
             printf("Equ: %d\n", process[index_process]);
             index_process = index_process +1;
         }
+
+        if(index_process == 3){
+            maxValues[index_max] = max(process, index_process);
+            index_max = index_max + 1;
+            index_process = 0;
+        }
     }
 
-    maxValues[index_max] = max(process, index_process);
+    printf("\n\n");
+    printArray(maxValues, index_max);
+
+    /*maxValues[index_max] = max(process, index_process);
     index_max = index_max + 1;
 
     int minValue = min(maxValues, index_max);
 
-    printf("\n\nSonuc: %d", minValue);
+    printf("\n\nSonuc: %d", minValue);*/
 
 }
 
