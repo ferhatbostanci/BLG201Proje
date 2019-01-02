@@ -4,6 +4,7 @@
 #define ARRAY_SIZE(array) (sizeof(array)/sizeof(array[0]))
 
 int maxValues[1000];
+int n, k;
 
 size_t getline(char **lineptr, size_t *n, FILE *stream) {
     char *bufptr = NULL;
@@ -75,7 +76,7 @@ int max(const int values[], int length){
     return maximum;
 }
 
-int equation(int a, int b, int c, int t, int k){
+int equation(int a, int b, int c, int t){
     int result = 0;
     result += (a + t) % k;
     result += (b + t) % k;
@@ -84,7 +85,7 @@ int equation(int a, int b, int c, int t, int k){
 }
 
 
-void createSampleData() {
+/*void createSampleData() {
     FILE *fptr = fopen(".\\data.txt", "wb");
     if (fptr == NULL) {
         printf("Can't Create A File!\n");
@@ -104,21 +105,39 @@ void createSampleData() {
     fprintf(fptr, "33,43,53,63,73,83,93,103,113\n");
     fprintf(fptr, "7\n");
     fclose(fptr);
-}
+}*/
 
-void printArray(int array[]) {
-    for (int i = 0; i < 8; ++i) {
-        printf("%d, ", array[i]);
+void printArray(int array[], int size) {
+    for (int i = 0; i < size; ++i) {
+        printf("%d ", array[i]);
     }
     printf("\n");
 }
 
-int * convertStrtoArr(char str[], int count){
+int getIntCount(char str[]){
+    char *temp = malloc(strlen(str) + 1);
+    strcpy(temp, str);
     char seps[] = " ";
     char* token;
     int var;
-    int input[count];
     int i = 0;
+
+    token = strtok(temp, seps);
+    while(token != NULL){
+        sscanf(token, "%d", &var);
+        token = strtok(NULL, seps);
+        i++;
+    }
+
+    return i;
+}
+
+int * convertStrtoArr(char str[], int size){
+    char seps[] = " ";
+    char* token;
+    int var;
+    int i = 0;
+    int *input = malloc(sizeof(int) * size);
 
     token = strtok(str, seps);
     while (token != NULL){
@@ -127,12 +146,11 @@ int * convertStrtoArr(char str[], int count){
         token = strtok(NULL, seps);
     }
 
-//    for (int j = 0; j < count ; ++j) {
-//        printf("%d ", input[j]);
-//    }
+    /*for (int j = 0; j < size ; ++j) {
+        printf("%d ", input[j]);
+    }*/
 
     return input;
-
 }
 
 void readFromFile() {
@@ -142,9 +160,10 @@ void readFromFile() {
     ssize_t read;
     int count = 2;
     int index_max = 0, index_process = 0;
-    int *a,*b,*c;
-    int k,t,i=0;
+    int a, b, c;
+    int t, i=0;
     int process[1000];
+    int *temp;
 
     int arr_count = 0;
 
@@ -154,49 +173,37 @@ void readFromFile() {
         exit(EXIT_FAILURE);
     while ((read = getline(&line, &len, fp)) != -1) {
         //printf("%s", line);
-        if (arr_count == 0) {
-            if(count == 2){
-                a = convertStrtoArr(line, 2);
-                count++;
-            }else{
-                a = convertStrtoArr(line, 3);
-            }
-        } else if (arr_count == 1) {
-            if(count == 2){
-                b = convertStrtoArr(line, 2);
-                count++;
-            }else{
-                b = convertStrtoArr(line, 3);
-            }
-        } else if (arr_count == 2) {
-            if(count == 2){
-                c = convertStrtoArr(line, 2);
-                count++;
-            }else{
-                c = convertStrtoArr(line, 3);
-            }
-        }
-        arr_count++;
-        if (arr_count % 4 == 3) {
+        int linesize = getIntCount(line);
+        if(linesize == 2) {
+            temp = convertStrtoArr(line, 2);
+            n = temp[0];
+            k = temp[1];
+            //printf("%d\n", temp[0]);
+        }else{
+            temp = convertStrtoArr(line, 3);
+            a = temp[0];
+            b = temp[1];
+            c = temp[2];
+
             printf("Please enter the addition number\n");
             scanf("%d", &t);
-            printf("Please enter the mod number\n");
-            scanf("%d", &k);
-            process[index_process] = equation(a[i], b[i], c[i], t, k);
-            printf("%d", process[index_process]);
-            index_process = index_process +1;
-            maxValues[index_max] = max(process, ARRAY_SIZE(process));
-            index_max = index_max + 1;
-            arr_count = 0;
-        }
 
+            process[index_process] = equation(a, b, c, t);
+            printf("Equ: %d\n", process[index_process]);
+            index_process = index_process +1;
+        }
     }
 
-    int minValue = min(maxValues, ARRAY_SIZE(maxValues));
+    maxValues[index_max] = max(process, index_process);
+    index_max = index_max + 1;
 
-    printArray(maxValues);
 
 
+
+    int minValue = min(maxValues, index_max);
+
+    printf("\n\nSonuc: %d", minValue);
+    
 }
 
 
