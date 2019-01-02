@@ -206,12 +206,9 @@ void readFromFile() {
     printf("\n\n");
     printArray(maxValues, index_max);
 
-    /*maxValues[index_max] = max(process, index_process);
-    index_max = index_max + 1;
-
     int minValue = min(maxValues, index_max);
 
-    printf("\n\nSonuc: %d", minValue);*/
+    printf("\n\nSonuc: %d", minValue);
 
 }
 
